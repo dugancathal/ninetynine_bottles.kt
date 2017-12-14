@@ -7,13 +7,9 @@ class Bottles {
                 No more bottles of beer on the wall, no more bottles of beer.
                 Go to the store and buy some more, 99 bottles of beer on the wall.
             """.trimIndent()
-            1 -> """
-                1 bottle of beer on the wall, 1 bottle of beer.
-                Take it down and pass it around, no more bottles of beer on the wall.
-            """.trimIndent()
             else -> """
-                $number bottles of beer on the wall, $number bottles of beer.
-                Take one down and pass it around, ${number - 1} ${container(number - 1)} of beer on the wall.
+                $number ${container(number)} of beer on the wall, $number ${container(number)} of beer.
+                Take ${pronoun(number)} down and pass it around, ${quantity(number - 1)} ${container(number - 1)} of beer on the wall.
             """.trimIndent()
         }
     }
@@ -27,5 +23,19 @@ class Bottles {
             "bottle"
         else
             "bottles"
+    }
+
+    private fun pronoun(number: Int): String {
+        return if (number == 1)
+            "it"
+        else
+            "one"
+    }
+
+    private fun quantity(number: Int): String {
+        return if (number == 0)
+            "no more"
+        else
+            "$number"
     }
 }
