@@ -8,20 +8,19 @@ class Bottles {
     fun verse(number: Int): String {
         val bottleNumber = BottleNumber.forNum(number)
         return "$bottleNumber of beer on the wall,\n".capitalize() +
-            "$bottleNumber of beer.\n" +
-            "${bottleNumber.action()},\n" +
-            "${bottleNumber.next()} of beer on the wall."
+                "$bottleNumber of beer.\n" +
+                "${bottleNumber.action()},\n" +
+                "${bottleNumber.next()} of beer on the wall."
     }
 }
 
 open class BottleNumber(private val number: Int) {
     companion object {
         fun forNum(number: Int): BottleNumber {
-            return when (number) {
-                0 -> BottleNumber0()
-                1 -> BottleNumber1()
-                6 -> BottleNumber6()
-                else -> BottleNumber(number)
+            return try {
+                Class.forName("${this::class.java.`package`.name}.BottleNumber$number").newInstance() as BottleNumber
+            } catch (e: ClassNotFoundException) {
+                BottleNumber(number)
             }
         }
     }
