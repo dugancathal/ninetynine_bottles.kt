@@ -1,10 +1,16 @@
 package com.tjtjrb.bottles
 
 class Bottles {
+    fun verses(start: Int, end: Int): String? {
+        return start.downTo(end).joinToString("\n") { verse(it) }
+    }
+
     fun verse(number: Int): String {
         return """
-            ${quantity(number).capitalize()} ${container(number)} of beer on the wall, ${quantity(number)} ${container(number)} of beer.
-            ${action(number)}, ${quantity(next(number))} ${container(next(number))} of beer on the wall.
+            ${quantity(number).capitalize()} ${container(number)} of beer on the wall,
+            ${quantity(number)} ${container(number)} of beer.
+            ${action(number)},
+            ${quantity(next(number))} ${container(next(number))} of beer on the wall.
         """.trimIndent()
     }
 
@@ -20,10 +26,6 @@ class Bottles {
             99
         else
             number - 1
-    }
-
-    fun verses(start: Int, end: Int): String? {
-        return start.downTo(end).joinToString("\n") { verse(it) }
     }
 
     private fun container(number: Int): String {
