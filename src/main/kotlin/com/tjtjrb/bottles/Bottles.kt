@@ -20,6 +20,7 @@ open class BottleNumber(private val number: Int) {
             return when (number) {
                 0 -> BottleNumber0()
                 1 -> BottleNumber1()
+                6 -> BottleNumber6()
                 else -> BottleNumber(number)
             }
         }
@@ -44,4 +45,9 @@ class BottleNumber0 : BottleNumber(0) {
 class BottleNumber1 : BottleNumber(1) {
     override fun container(): String = "bottle"
     override fun pronoun(): String = "it"
+}
+
+class BottleNumber6 : BottleNumber(6) {
+    override fun container(): String = "six-pack"
+    override fun quantity(): String = "1"
 }

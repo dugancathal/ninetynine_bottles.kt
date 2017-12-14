@@ -68,4 +68,18 @@ class BottlesTest {
             97 bottles of beer on the wall.
         """.trimIndent())
     }
+
+    @Test
+    fun `return 'six-pack' instead of 6 bottles`() {
+        assertThat(Bottles().verses(7, 6)).isEqualTo("""
+            7 bottles of beer on the wall,
+            7 bottles of beer.
+            Take one down and pass it around,
+            1 six-pack of beer on the wall.
+            1 six-pack of beer on the wall,
+            1 six-pack of beer.
+            Take one down and pass it around,
+            5 bottles of beer on the wall.
+        """.trimIndent())
+    }
 }
