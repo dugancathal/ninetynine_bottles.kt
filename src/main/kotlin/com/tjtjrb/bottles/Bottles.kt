@@ -21,9 +21,9 @@ open class BottleNumber(private val number: Int) {
     companion object {
         fun forNum(number: Int): BottleNumber {
             return if (number == 0) {
-                BottleNumber0(number)
+                BottleNumber0()
             } else if (number == 1) {
-                BottleNumber1(number)
+                BottleNumber1()
             } else {
                 BottleNumber(number)
             }
@@ -38,13 +38,13 @@ open class BottleNumber(private val number: Int) {
     open fun pronoun(): String = "one"
 }
 
-class BottleNumber0(number: Int) : BottleNumber(number) {
+class BottleNumber0 : BottleNumber(0) {
     override fun action(): String = "Go to the store and buy some more"
     override fun next(): Int = 99
     override fun quantity(): String = "no more"
 }
 
-class BottleNumber1(number: Int) : BottleNumber(number) {
+class BottleNumber1 : BottleNumber(1) {
     override fun container(): String = "bottle"
     override fun pronoun(): String = "it"
 }
