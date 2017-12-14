@@ -22,6 +22,8 @@ open class BottleNumber(private val number: Int) {
         fun forNum(number: Int): BottleNumber {
             return if (number == 0) {
                 BottleNumber0(number)
+            } else if (number == 1) {
+                BottleNumber1(number)
             } else {
                 BottleNumber(number)
             }
@@ -32,23 +34,17 @@ open class BottleNumber(private val number: Int) {
     open fun quantity(): String = "$number"
     open fun next(): Int = number - 1
 
-    fun container(): String {
-        return if (number == 1)
-            "bottle"
-        else
-            "bottles"
-    }
-
-    fun pronoun(): String {
-        return if (number == 1)
-            "it"
-        else
-            "one"
-    }
+    open fun container(): String = "bottles"
+    open fun pronoun(): String = "one"
 }
 
 class BottleNumber0(number: Int) : BottleNumber(number) {
     override fun action(): String = "Go to the store and buy some more"
     override fun next(): Int = 99
     override fun quantity(): String = "no more"
+}
+
+class BottleNumber1(number: Int) : BottleNumber(number) {
+    override fun container(): String = "bottle"
+    override fun pronoun(): String = "it"
 }
