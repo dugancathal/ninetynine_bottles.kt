@@ -2,16 +2,24 @@ package com.tjtjrb.bottles
 
 class Bottles {
     fun verse(number: Int): String {
-        return when (number) {
-            0 -> """
-                No more bottles of beer on the wall, no more bottles of beer.
-                Go to the store and buy some more, 99 bottles of beer on the wall.
-            """.trimIndent()
-            else -> """
-                $number ${container(number)} of beer on the wall, $number ${container(number)} of beer.
-                Take ${pronoun(number)} down and pass it around, ${quantity(number - 1)} ${container(number - 1)} of beer on the wall.
-            """.trimIndent()
-        }
+        return """
+            ${quantity(number).capitalize()} ${container(number)} of beer on the wall, ${quantity(number)} ${container(number)} of beer.
+            ${action(number)}, ${quantity(next(number))} ${container(next(number))} of beer on the wall.
+        """.trimIndent()
+    }
+
+    private fun action(number: Int): String {
+        return if (number == 0)
+            "Go to the store and buy some more"
+        else
+            "Take ${pronoun(number)} down and pass it around"
+    }
+
+    private fun next(number: Int): Int {
+        return if (number == 0)
+            99
+        else
+            number - 1
     }
 
     fun verses(start: Int, end: Int): String? {
