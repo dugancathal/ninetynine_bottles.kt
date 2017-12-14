@@ -6,8 +6,8 @@ class Bottles {
     }
 
     fun verse(number: Int): String {
-        val bottleNumber = BottleNumber(number)
-        val nextBottleNumber = BottleNumber(BottleNumber(number).next())
+        val bottleNumber = BottleNumber.forNum(number)
+        val nextBottleNumber = BottleNumber.forNum(BottleNumber.forNum(number).next())
         return """
             ${bottleNumber.quantity().capitalize()} ${bottleNumber.container()} of beer on the wall,
             ${bottleNumber.quantity()} ${bottleNumber.container()} of beer.
@@ -17,20 +17,20 @@ class Bottles {
     }
 }
 
-class BottleNumber(private val number: Int) {
-    fun action(): String {
-        return if (number == 0)
-            "Go to the store and buy some more"
-        else
-            "Take ${pronoun()} down and pass it around"
+open class BottleNumber(private val number: Int) {
+    companion object {
+        fun forNum(number: Int): BottleNumber {
+            return if (number == 0) {
+                BottleNumber0(number)
+            } else {
+                BottleNumber(number)
+            }
+        }
     }
 
-    fun next(): Int {
-        return if (number == 0)
-            99
-        else
-            number - 1
-    }
+    open fun action(): String = "Take ${pronoun()} down and pass it around"
+    open fun quantity(): String = "$number"
+    open fun next(): Int = number - 1
 
     fun container(): String {
         return if (number == 1)
@@ -45,11 +45,10 @@ class BottleNumber(private val number: Int) {
         else
             "one"
     }
+}
 
-    fun quantity(): String {
-        return if (number == 0)
-            "no more"
-        else
-            "$number"
-    }
+class BottleNumber0(number: Int) : BottleNumber(number) {
+    override fun action(): String = "Go to the store and buy some more"
+    override fun next(): Int = 99
+    override fun quantity(): String = "no more"
 }
